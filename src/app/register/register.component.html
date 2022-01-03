@@ -1,0 +1,18 @@
+<div class="form">
+    <h1>Register</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)=register()>
+        <div class="login-form">
+            <input type="text" id="uname" formControlName="uname" placeholder="User Name" name="username"/>
+            <div *ngIf="(this.registerForm.get('uname')?.touched||this.registerForm.get('uname')?.dirty)&&this.registerForm.get('uname')?.errors" class="error">Invalid Username</div>
+            <input type="text" id="acno" formControlName="acno" placeholder="Account Number" name="acno"/>
+            <div *ngIf="(this.registerForm.get('acno')?.touched||this.registerForm.get('acno')?.dirty)&&this.registerForm.get('acno')?.errors" class="error">Invalid Account Number</div>
+    
+            <input type="password" id="password" formControlName="pswd" placeholder="password" name="password"/>
+            <div *ngIf="(this.registerForm.get('pswd')?.touched||this.registerForm.get('pswd')?.dirty)&&this.registerForm.get('pswd')?.errors" class="error">Invalid Password</div>
+            <button type="submit">register</button>
+            <p class="message">Already registered? <a routerLink="">Login</a></p>
+        </div>
+    </form>
+
+</div>

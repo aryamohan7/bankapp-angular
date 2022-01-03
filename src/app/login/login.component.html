@@ -1,0 +1,20 @@
+<p id="aim">{{aim}}</p>
+
+<div class="form">
+    <h1>Login</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="login-form">
+            <input type="text" id="acno" formControlName="acno" [placeholder]="accno" name="acno" />
+
+            <div *ngIf="(this.loginForm.get('acno')?.touched||this.loginForm.get('acno')?.dirty)&&this.loginForm.get('acno')?.errors" class="error">Invalid Username</div>
+
+            <input type="password" id="pswd" formControlName="pswd" placeholder="password" name="password"/>
+            <div *ngIf="(this.loginForm.get('pswd')?.touched||this.loginForm.get('pswd')?.dirty)&&this.loginForm.get('pswd')?.errors" class="error">Invalid Password</div>
+
+            <button type="submit">login</button>
+            <p class="message">Not registered? <a routerLink="register">Create an account</a></p>
+        </div>
+    </form>
+
+</div>

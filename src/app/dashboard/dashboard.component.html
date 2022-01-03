@@ -1,0 +1,118 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #4CAF50;">
+      <div class="container">
+        <a class="navbar-brand" href="#">Bank Application</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <!-- <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">Balance Enquiry</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Payment History</a>
+            </li> -->
+            <li>
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#depo" style="background-color: #4caf50; color: white;">
+                Deposit
+              </button>
+            </li>
+            <li>
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #4caf50; color: white;">
+                Withdraw
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-danger">Logout</button>
+            </li>
+            
+  
+  
+          </ul>
+
+
+          <form [formGroup]="depositForm" (ngSubmit)="deposit()">
+              <div class="modal fade" id="depo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" style="background-color: #4CAF50;">
+                      <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Deposit</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="mb-3">
+                        <input type="text" name="acno" id="acno" formControlName="acno" class="form-control" placeholder="Enter Account Number">
+                        <div *ngIf="(this.depositForm.get('acno')?.touched||this.depositForm.get('acno')?.dirty)&&this.depositForm.get('acno')?.errors" class="error">Invalid Account Number</div>
+
+                      </div>
+                      <div class="mb-3">
+                        <input type="password" name="pswd" id="pswd" formControlName="pswd" class="form-control" placeholder="Password">
+                        <div *ngIf="(this.depositForm.get('pswd')?.touched||this.depositForm.get('pswd')?.dirty)&&this.depositForm.get('pswd')?.errors" class="error">Invalid Password</div>
+
+                      </div>
+                      <div class="mb-3">
+                        <input type="text" name="amount" id="amount" formControlName="amount" class="form-control" placeholder="Enter Amount">
+                        <div *ngIf="(this.depositForm.get('amount')?.touched||this.depositForm.get('amount')?.dirty)&&this.depositForm.get('amount')?.errors" class="error">Invalid Amount</div>
+
+                      </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" type="submit">Proceed</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </form>
+          
+          <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" style="background-color: #4CAF50;">
+                      <h5 class="modal-title" id="exampleModalLabel" style=" color: white;">Withdraw</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="mb-3">
+                        <input type="text" name="acno1" id="acno1" formControlName="acno1" class="form-control" placeholder="Enter Account Number">
+                        <div *ngIf="(this.withdrawForm.get('acno1')?.touched||this.withdrawForm.get('acno1')?.dirty)&&this.withdrawForm.get('acno1')?.errors" class="error">Invalid Account Number</div>
+
+                      </div>
+                      <div class="mb-3">
+                        <input type="password" name="pswd1" id="pswd1" formControlName="pswd1" class="form-control" placeholder="Password">
+                        <div *ngIf="(this.withdrawForm.get('pswd1')?.touched||this.withdrawForm.get('pswd1')?.dirty)&&this.withdrawForm.get('pswd1')?.errors" class="error">Invalid Password</div>
+
+                      </div>
+                      <div class="mb-3">
+                        <input type="text" name="amount1" id="amount1" formControlName="amount1" class="form-control" placeholder="Enter Amount">
+                        <div *ngIf="(this.withdrawForm.get('amount1')?.touched||this.withdrawForm.get('amount1')?.dirty)&&this.withdrawForm.get('amount1')?.errors" class="error">Invalid Amount</div>
+
+                      </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" type="submit">Proceed</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </form>
+  
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
+
+<body class="text-center">
+  <h1 class="mt-3">Welcome {{user}}</h1>
+  
+
+
+</body>
