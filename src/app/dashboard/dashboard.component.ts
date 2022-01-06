@@ -42,9 +42,9 @@ export class DashboardComponent implements OnInit {
   }
 
   deposit() {
-    var acno = this.acno
-    var pswd = this.pswd
-    var amount = this.amount
+    var acno = this.depositForm.value.acno
+    var pswd = this.depositForm.value.pswd
+    var amount = this.depositForm.value.amount
 
     let result = this.ds.deposit(acno, pswd, amount)
 
@@ -56,9 +56,9 @@ export class DashboardComponent implements OnInit {
   }
 
   withdraw() {
-    var acno = this.acno1
-    var pswd = this.pswd1
-    var amount = this.amount1
+    var acno = this.withdrawForm.value.acno1
+    var pswd = this.withdrawForm.value.pswd1
+    var amount = this.withdrawForm.value.amount1
 
     let result = this.ds.withdraw(acno, pswd, amount)
 

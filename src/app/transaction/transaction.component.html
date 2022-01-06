@@ -1,0 +1,18 @@
+<table style>
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <th>{{transaction.amount}}</th>
+            <th>{{transaction.type}}</th>
+        </tr>
+
+        
+
+    </tbody>
+</table>
+<a style=" color: white;" routerLink="/dashboard">Home</a>

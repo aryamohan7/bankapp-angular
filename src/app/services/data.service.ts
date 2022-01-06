@@ -8,13 +8,19 @@ export class DataService {
 
   currentUserName:any
 
+  currentAccno:any
+
   users: any = {
-    1000: { acno: 1000, uname: "Ram", password: "1000", balance: 5000 },
-    1001: { acno: 1001, uname: "Ravi", password: "1001", balance: 5000 },
-    1002: { acno: 1002, uname: "John", password: "1002", balance: 5000 }
+    1000: { acno: 1000, uname: "Ram", password: "1000", balance: 5000,transaction:[] },
+    1001: { acno: 1001, uname: "Ravi", password: "1001", balance: 5000,transaction:[] },
+    1002: { acno: 1002, uname: "John", password: "1002", balance: 5000,transaction:[] }
   }
 
-  constructor() { }
+  constructor() {
+   this.getDetails()
+   }
+
+  
 
   // to dtore
   saveDetails(){
@@ -23,6 +29,22 @@ export class DataService {
     }
     if(this.currentUserName){
       localStorage.setItem("cuurentUser",JSON.stringify(this.currentUserName))
+    }
+    if(this.currentAccno){
+      localStorage.setItem("currentAccnoLocal",JSON.stringify(this.currentAccno))
+    }
+  }
+
+  getDetails(){
+    if(localStorage.getItem("userDB")){
+      this.users = JSON.parse(localStorage.getItem("userDB") || '')
+    }
+    if(localStorage.getItem("cuurentUser")){
+      this.currentUserName=JSON.parse(localStorage.getItem("cuurentUser")||'')
+    }
+    if(localStorage.getItem("currentAccnoLocal"))
+    {
+      this.currentAccno=JSON.parse(localStorage.getItem("currentAccnoLocal")||'')
     }
   }
 
@@ -37,7 +59,8 @@ export class DataService {
         acno,
         uname,
         password,
-        balance: 0
+        balance: 0,
+        transaction:[] 
       }
       // console.log(db);
       this.saveDetails()
@@ -53,7 +76,7 @@ export class DataService {
 
     if (acno in database) {
       if (password == database[acno]["password"]) {
-
+       this.currentAccno=acno
         this.currentUserName=database[acno]["uname"]
         this.saveDetails()
         return true
@@ -74,6 +97,10 @@ export class DataService {
 
   }
 
+  getTransaction(){
+    return this.users[this.currentAccno].transaction
+  }
+
   deposit(acno: any, password: any, amt: any) {
 
     var amount = parseInt(amt)
@@ -83,9 +110,16 @@ export class DataService {
 
     if (acno in db) {
       if (password == db[acno]["password"]) {
+
         db[acno]["balance"] = db[acno]["balance"] + amount
+        db[acno].transaction.push({
+          amount:amount,
+          type:"Credit"
+        })
         this.saveDetails()
+
         return db[acno]["balance"]
+
 
 
       }
@@ -110,9 +144,16 @@ export class DataService {
     if (acno in db) {
       if (password == db[acno]["password"]) {
         if (db[acno]["balance"]>=amount) {
+
           db[acno]["balance"] = db[acno]["balance"] - amount
+          db[acno].transaction.push({
+            amount:amount,
+            type:"Debit"
+          })
           this.saveDetails()
+
         return db[acno]["balance"]
+
           
         }
         
