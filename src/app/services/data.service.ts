@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class DataService {
     1002: { acno: 1002, uname: "John", password: "1002", balance: 5000,transaction:[] }
   }
 
-  constructor() {
+  constructor(private http:HttpClient) {
    this.getDetails()
    }
 
@@ -50,50 +51,21 @@ export class DataService {
 
   register(acno: any, password: any, uname: any) {
 
-    let db = this.users
-    if (acno in db) {
-      return false
+    const data = {
+      acno,
+      password,
+      uname
     }
-    else {
-      db[acno] = {
-        acno,
-        uname,
-        password,
-        balance: 0,
-        transaction:[] 
-      }
-      // console.log(db);
-      this.saveDetails()
-
-      return true
-
-    }
+    return this.http.post('http://localhost:3000/register',data)
 
   }
 
   login(acno: any, password: any) {
-    let database = this.users
-
-    if (acno in database) {
-      if (password == database[acno]["password"]) {
-       this.currentAccno=acno
-        this.currentUserName=database[acno]["uname"]
-        this.saveDetails()
-        return true
-
-        // this.router.navigateByUrl('dashboard')
-
-      }
-      else {
-        alert("incorrect password")
-        return false
-      }
-
-    }
-    else {
-      alert("incorrect account number")
-      return false
-    }
+   const data ={
+     acno,
+     password
+   }
+   return this.http.post('http://localhost:3000/login',data)
 
   }
 
@@ -152,13 +124,8 @@ export class DataService {
           })
           this.saveDetails()
 
-        return db[acno]["balance"]
-
-          
+        return db[acno]["balance"] 
         }
-        
-
-
       }
       else {
         alert("Incorrect Password!!")

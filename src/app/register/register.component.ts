@@ -16,8 +16,8 @@ export class RegisterComponent implements OnInit {
 
   registerForm = this.fb.group({
     uname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    pswd: ['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]],
-    acno: ['',[Validators.required,Validators.pattern('[0-9]*')]]
+    pswd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]]
 
   })
 
@@ -29,31 +29,33 @@ export class RegisterComponent implements OnInit {
   register() {
 
 
-    console.log(this.registerForm);
+   // console.log(this.registerForm);
 
     if (this.registerForm.valid) {
       var uname = this.registerForm.value.uname
       var acno = this.registerForm.value.acno
       var pswd = this.registerForm.value.pswd
+      //asyn
+      this.ds.register(acno, pswd, uname)
+        .subscribe((result:any) => {
+          if (result) {
+            alert(result.message)
+            this.router.navigateByUrl("")
+          }  
+        },
+        (result)=>{
+          alert(result.error.message);
+          
 
-      let result = this.ds.register(acno, pswd, uname)
+        }     
+        
+        )
 
-      if (result == true) {
-        alert("Account registered successfully...")
-        this.router.navigateByUrl("")
       }
-      else {
-        alert("Account Already Exists !")
-
-      }
-    }
     else {
       alert("Invalid form!!!")
     }
-
+  
 
   }
-
-
 }
-

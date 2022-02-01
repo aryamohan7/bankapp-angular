@@ -47,26 +47,32 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    if (this.loginForm.valid) {
-      var acno = this.loginForm.value.acno
+    var acno = this.loginForm.value.acno
       var password = this.loginForm.value.pswd
+      
+    if (this.loginForm.valid) {
       // let database = this.ds.users
+      this.ds.login(acno, password)
+      .subscribe((result:any) => {
+        if (result) {
+          alert(result.message)
+          this.router.navigateByUrl("dashboard")
+        }  
+      },
+      (result)=>{
+        alert(result.error.message);
+        
 
-      let result = this.ds.login(acno, password)
-
-      if (result) {
-        alert("login successful")
-        this.router.navigateByUrl('dashboard')
-      }
-
-    }
-    else {
-      alert("Invalid Form!!!")
-    }
+      }     
+      
+      )
 
 
   }
-
+  else{
+    alert("invalid form")
+  }
+    }
   // login(a:any,p:any){
   //   var acno = a.value
   //   var password = p.value
@@ -89,4 +95,6 @@ export class LoginComponent implements OnInit {
 
   // }
 
-}
+  }
+
+
